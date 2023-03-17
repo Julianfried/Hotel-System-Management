@@ -1,0 +1,99 @@
+{% extends 'todo_list/main.html' %} {% load static %} {%block css%}
+<link rel="stylesheet" href="{% static todo_list.css%}" />{%endblock css%}
+{%block content %}
+<div class="container">
+  <div class="row">
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="col col-xl-10 shadow p-3 mb-5 bg-body rounded border border-primary border-1 rounded-3">
+        <div class="card-body p-4">
+          <div class="d-flex flex-row justify-content-between">
+            <div class="align-self-center">
+              <h1 class="">Lista de tareas</h1>
+            </div>
+
+            <div class="float-end">
+              <a class="btn btn-primary mt-2" href="{% url 'todo_list:task-create' %}" role="button">Agregar
+                tarea</a>
+            </div>
+          </div>
+
+
+          <div class="row d-flex justify-content-center align-items-center">
+            <div class="col col-xl-10">
+              <ul class="list-group mb-0">
+
+                {% for task in tasks %}
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
+
+                  <div class="d-flex align-items-center">
+                    <i><a href="{% url 'todo_list:task-update' task.id %}">{{task}}</a></i>
+                  </div>
+                  <div class="d-flex flex-row justify-content-end mb-1">
+                    <a href="{% url 'todo_list:task-delete' task.id %}" class="text-danger" data-mdb-toggle="tooltip"
+                      title="Delete todo"><i class="fas fa-times text-primary"></i>x</a>
+                  </div>
+
+
+                </li>
+                {% if task.complete %}
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
+
+                  <div class="d-flex align-items-center">
+                    <i><s><a class="align-items-center"
+                          href="{% url 'todo_list:task-update' task.id %}">{{task}}</a></s></i>
+                  </div>
+                </li>
+                {% endif%}
+
+              </ul>
+              {% empty %}
+              <h3>No hay tareas pendientes</h3>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock content %}
+
+  <!-- <div class="d-flex align-items-center justify-content-spacebetween">
+    <div>
+        <h1>Hola {{request.user|title}}</h1>
+        <h3 style="margin:0">Tienes <i>{{count}}</i> tarea{{ count|pluralize:"s" }} por completar</h3>
+    </div>
+</div>
+
+
+<a class="add-link" href="{% url 'todo_list:task-create' %}">Agregar Tarea</a>
+<form method="GET">
+    <input type="text" name="search-area" value="{{search_input}}">
+    <input type="submit" value="Search">
+</form> 
+<div class="d-flex align-items-center justify-content-spacebetween">
+    {% for task in tasks %}
+    <div class="task-wrapper">
+        {% if task.complete %}
+        <div class="task-title">
+            <div class="task-complete-icon">
+                <i><s><a href="{% url 'todo_list:task-update' task.id %}">{{task}}</a></s></i>
+            </div>
+        </div>
+        {% else %}
+        <div class="task-title">
+            <div class="task-incomplete-icon">
+                <i><s><a href="{% url 'todo_list:task-update' task.id %}">{{task}}</a></s></i>
+            </div>
+        </div>
+        <a class="delete-link" href="{% url 'todo_list:task-delete' task.id %}"> &#215; </a>
+        {% endif%}
+        
+    </div>
+    {% empty %}
+    <h3>No hay tareas pendientes</h3>
+    {% endfor %}
+</div>
+ -->
